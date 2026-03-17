@@ -1,0 +1,29 @@
+<ContentPage
+    x:Class="FaunaScanApp.Views.ResultPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Image x:Name="AnimalImage" HeightRequest="200"/>
+
+            <Label x:Name="SpeciesLabel" TextColor="White" FontSize="24"/>
+
+            <Label x:Name="ConfidenceLabel" TextColor="#22C55E"/>
+
+            <Label x:Name="DescriptionLabel" TextColor="#CBD5F5"/>
+
+            <Label x:Name="HabitatLabel" TextColor="#94A3B8"/>
+
+            <Label Text="🔎 Autres possibilités"
+                   TextColor="White"
+                   FontAttributes="Bold"/>
+
+            <VerticalStackLayout x:Name="TopPredictionsLayout"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

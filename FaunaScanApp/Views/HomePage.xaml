@@ -1,0 +1,72 @@
+<ContentPage
+    x:Class="FaunaScanApp.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#020617">
+
+    <Grid>
+
+        <Image Source="https://images.unsplash.com/photo-1501706362039-c6e80948bb62"
+               Aspect="AspectFill"
+               Opacity="0.4"/>
+
+        <BoxView Color="#020617" Opacity="0.6"/>
+
+        <ScrollView>
+            <VerticalStackLayout Padding="30" Spacing="25">
+
+                <!-- LOGO -->
+                <Image Source="logo.png"
+                       HeightRequest="90"
+                       HorizontalOptions="Center"/>
+
+                <Label
+                    Text="FaunaScan"
+                    FontSize="36"
+                    FontAttributes="Bold"
+                    TextColor="White"/>
+
+                <Label
+                    Text="FaunaScan est une application utilisant l’intelligence artificielle pour identifier automatiquement les animaux à partir d’une simple photo. L’analyse est réalisée en temps réel afin de fournir des informations précises et enrichies sur l’espèce détectée."
+                    TextColor="#CBD5F5"
+                    FontSize="14"/>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#1E293B"
+                        Padding="20">
+
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label
+                            Text="🚀 Fonctionnement"
+                            FontSize="18"
+                            TextColor="White"
+                            FontAttributes="Bold"/>
+
+                        <Label
+                            Text="• Capture ou import d’image\n• Analyse par IA\n• Résultat instantané"
+                            TextColor="#94A3B8"/>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- BOUTON -->
+                <Border StrokeShape="RoundRectangle 30"
+                        BackgroundColor="#22C55E"
+                        x:Name="ScanButtonContainer">
+
+                    <Button
+                        Text="📸 Scanner un animal"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        HeightRequest="60"
+                        Command="{Binding ScanCommand}" />  
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

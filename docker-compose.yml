@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+
+  # ─────────────────────────────────────
+  # MongoDB
+  # ─────────────────────────────────────
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - animal_network
+
+  # ─────────────────────────────────────
+  # Service Wikipedia
+  # ─────────────────────────────────────
+  wikipedia:
+    build:
+      context: ./wikipedia
+      dockerfile: Dockerfile
+    container_name: wikipedia
+    restart: always
+    ports:
+      - "8001:8001"
+    networks:
+      - animal_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─────────────────────────────────────
+  # Service YOLOv8
+  # ─────────────────────────────────────
+  yolov8:
+    build:
+      context: ./yolov8
+      dockerfile: Dockerfile
+    container_name: yolov8
+    restart: always
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./yolov8/weights:/app/weights  # monter le dossier des poids
+    networks:
+      - animal_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─────────────────────────────────────
+  # Service FastAPI Principal
+  # ─────────────────────────────────────
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+      - wikipedia
+      - yolov8
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - WIKIPEDIA_URL=http://wikipedia:8001
+      - YOLO_URL=http://yolov8:8002
+      - JWT_SECRET=change_this_secret_in_production
+      - JWT_ALGORITHM=HS256
+      - JWT_EXPIRE_MINUTES=60
+    networks:
+      - animal_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# ─────────────────────────────────────
+# Volumes & Réseau
+# ─────────────────────────────────────
+volumes:
+  mongo_data:
+
+networks:
+  animal_network:
+    driver: bridge

@@ -1,8 +1,11 @@
-﻿namespace FaunaScanApp.ViewModels;
+﻿using FaunaScanApp.Services;
+using FaunaScanApp.Models;
+
+namespace FaunaScanApp.ViewModels;
 
 public partial class RegisterPageViewModel : ObservableObject
 {
-    private readonly FakeAuthService _authService = new();
+    private readonly LocalDatabaseService _db = new();
 
     [ObservableProperty] private string username = string.Empty;
     [ObservableProperty] private string email = string.Empty;
@@ -20,23 +23,22 @@ public partial class RegisterPageViewModel : ObservableObject
             BirthDate = BirthDate
         };
 
-        var success = _authService.Register(user);
+        var success = _db.Register(user);
 
         if (success)
         {
-            await Application.Current!.Windows[0].Page.DisplayAlert("Succès", "Compte créé", "OK");
-            await Application.Current!.Windows[0].Page.Navigation.PopAsync();
+            await Application.Current!.MainPage.DisplayAlert("Succès", "Compte créé", "OK");
+            await Application.Current!.MainPage.Navigation.PopAsync();
         }
         else
         {
-            await Application.Current!.Windows[0].Page.DisplayAlert("Erreur", "Email déjà utilisé", "OK");
+            await Application.Current!.MainPage.DisplayAlert("Erreur", "Email déjà utilisé", "OK");
         }
     }
 
-    // 🔥 AJOUT IMPORTANT
     [RelayCommand]
     private async Task GoToLogin()
     {
-        await Application.Current!.Windows[0].Page.Navigation.PopAsync();
+        await Application.Current!.MainPage.Navigation.PopAsync();
     }
 }

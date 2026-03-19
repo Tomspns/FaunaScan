@@ -1,8 +1,10 @@
-﻿namespace FaunaScanApp.ViewModels;
+﻿using FaunaScanApp.Services;
+
+namespace FaunaScanApp.ViewModels;
 
 public partial class LoginPageViewModel : ObservableObject
 {
-    private readonly FakeAuthService _authService = new();
+    private readonly LocalDatabaseService _db = new();
 
     [ObservableProperty]
     private string email = string.Empty;
@@ -13,27 +15,22 @@ public partial class LoginPageViewModel : ObservableObject
     [RelayCommand]
     private async Task Login()
     {
-        var user = _authService.Login(Email, Password);
-
-        // 🔍 DEBUG : afficher tous les utilisateurs
-        var users = _authService.GetAllUsers();
-        string debug = string.Join("\n", users.Select(u => u.Email));
-
-        await Application.Current!.Windows[0].Page.DisplayAlert("Users enregistrés", debug, "OK");
+        var user = _db.Login(Email, Password);
 
         if (user != null)
         {
-            await Application.Current!.Windows[0].Page.Navigation.PushAsync(new Views.HomePage());
+            Application.Current!.MainPage =
+                new NavigationPage(new Views.CameraPage());
         }
         else
         {
-            await Application.Current!.Windows[0].Page.DisplayAlert("Erreur", "Identifiants incorrects", "OK");
+            await Application.Current!.MainPage.DisplayAlert("Erreur", "Identifiants incorrects", "OK");
         }
     }
 
     [RelayCommand]
     private async Task GoToRegister()
     {
-        await Application.Current!.Windows[0].Page.Navigation.PushAsync(new Views.RegisterPage());
+        await Application.Current!.MainPage.Navigation.PushAsync(new Views.RegisterPage());
     }
 }

@@ -24,13 +24,17 @@
                Opacity="0.7"/>
 
         <!-- SCAN FRAME OVERLAY -->
-        <Grid Padding="32" VerticalOptions="Center" HorizontalOptions="Center">
+        <Grid Padding="24"
+              VerticalOptions="CenterAndExpand"
+              HorizontalOptions="Center">
+
             <Border StrokeThickness="2"
                     Stroke="#22C55E"
                     StrokeShape="RoundRectangle 24"
                     BackgroundColor="#0522C55E"
-                    HeightRequest="320"
-                    WidthRequest="320">
+                    HeightRequest="280"
+                    WidthRequest="280">
+
                 <Border.Shadow>
                     <Shadow Brush="#22C55E"
                             Offset="0,0"
@@ -39,32 +43,38 @@
                 </Border.Shadow>
 
                 <Grid>
+
+                    <!-- LOGO CENTRÉ (🔥 AJOUT PRINCIPAL) -->
+                    <Image Source="logo.png"
+                           HeightRequest="200"
+                           WidthRequest="200"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Opacity="0.9"/>
+
                     <!-- Corner Indicators -->
-                    <!-- Top Left -->
                     <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
-                             HorizontalOptions="Start" VerticalOptions="Start" Margin="0"/>
+                             HorizontalOptions="Start" VerticalOptions="Start"/>
                     <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
-                             HorizontalOptions="Start" VerticalOptions="Start" Margin="0"/>
+                             HorizontalOptions="Start" VerticalOptions="Start"/>
 
-                    <!-- Top Right -->
                     <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
-                             HorizontalOptions="End" VerticalOptions="Start" Margin="0"/>
+                             HorizontalOptions="End" VerticalOptions="Start"/>
                     <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
-                             HorizontalOptions="End" VerticalOptions="Start" Margin="0"/>
+                             HorizontalOptions="End" VerticalOptions="Start"/>
 
-                    <!-- Bottom Left -->
                     <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
-                             HorizontalOptions="Start" VerticalOptions="End" Margin="0"/>
+                             HorizontalOptions="Start" VerticalOptions="End"/>
                     <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
-                             HorizontalOptions="Start" VerticalOptions="End" Margin="0"/>
+                             HorizontalOptions="Start" VerticalOptions="End"/>
 
-                    <!-- Bottom Right -->
                     <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
-                             HorizontalOptions="End" VerticalOptions="End" Margin="0"/>
+                             HorizontalOptions="End" VerticalOptions="End"/>
                     <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
-                             HorizontalOptions="End" VerticalOptions="End" Margin="0"/>
+                             HorizontalOptions="End" VerticalOptions="End"/>
 
-                    <!-- SCAN LINE (animated) -->
+                    <!-- SCAN LINE -->
                     <BoxView x:Name="ScanLine"
                              HeightRequest="3"
                              BackgroundColor="#22C55E"
@@ -91,15 +101,17 @@
                             </LinearGradientBrush>
                         </BoxView.Background>
                     </BoxView>
+
                 </Grid>
             </Border>
         </Grid>
 
-        <!-- SCAN INSTRUCTIONS (Center top) -->
-        <VerticalStackLayout VerticalOptions="Start" 
-                             HorizontalOptions="Center" 
-                             Padding="24,60,24,0"
+        <!-- SCAN INSTRUCTIONS -->
+        <VerticalStackLayout VerticalOptions="Start"
+                             HorizontalOptions="Center"
+                             Padding="24,30,24,0"
                              Spacing="8">
+
             <Label Text="Positionnez l'animal"
                    FontSize="20"
                    FontAttributes="Bold"
@@ -112,6 +124,7 @@
                             Opacity="0.5"/>
                 </Label.Shadow>
             </Label>
+
             <Label Text="dans le cadre de scan"
                    FontSize="14"
                    TextColor="#94A3B8"
@@ -119,7 +132,10 @@
         </VerticalStackLayout>
 
         <!-- BOTTOM CONTROLS -->
-        <Grid VerticalOptions="End" Padding="24,0,24,40" RowSpacing="16">
+        <Grid VerticalOptions="End"
+              Padding="24,10,24,40"
+              RowSpacing="12">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -127,89 +143,74 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- LOGO -->
-            <Border Grid.Row="0"
-                    StrokeThickness="0"
-                    HeightRequest="70"
-                    WidthRequest="70"
-                    HorizontalOptions="Center"
-                    StrokeShape="RoundRectangle 35"
-                    BackgroundColor="#0A1628"
-                    Margin="0,0,0,8">
-                <Border.Shadow>
-                    <Shadow Brush="#22C55E"
-                            Offset="0,0"
-                            Radius="25"
-                            Opacity="0.4"/>
-                </Border.Shadow>
-                <Image Source="logo.png"
-                       HeightRequest="50"
-                       WidthRequest="50"
-                       Aspect="AspectFit"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"/>
-            </Border>
+            
 
-            <!-- PRIMARY BUTTON: TAKE PHOTO -->
+            <!-- TAKE PHOTO -->
             <Border Grid.Row="1"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 30"
                     HeightRequest="64">
+
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#22C55E" Offset="0.0"/>
                         <GradientStop Color="#16A34A" Offset="1.0"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
                 <Border.Shadow>
                     <Shadow Brush="#22C55E"
                             Offset="0,4"
                             Radius="20"
                             Opacity="0.5"/>
                 </Border.Shadow>
+
                 <Button Text="Prendre une photo"
                         BackgroundColor="Transparent"
                         TextColor="White"
                         FontSize="17"
                         FontAttributes="Bold"
-                        HeightRequest="64"
                         Command="{Binding TakePhotoCommand}"/>
             </Border>
 
-            <!-- SECONDARY BUTTON: IMPORT IMAGE -->
+            <!-- IMPORT -->
             <Border Grid.Row="2"
                     StrokeThickness="1"
                     Stroke="#1E293B"
                     StrokeShape="RoundRectangle 30"
                     BackgroundColor="#0A1628"
                     HeightRequest="60">
+
                 <Border.Shadow>
                     <Shadow Brush="#000000"
                             Offset="0,4"
                             Radius="12"
                             Opacity="0.3"/>
                 </Border.Shadow>
+
                 <Button Text="Importer depuis la galerie"
                         BackgroundColor="Transparent"
                         TextColor="#94A3B8"
                         FontSize="15"
-                        HeightRequest="60"
                         Command="{Binding PickPhotoCommand}"/>
             </Border>
 
-            <!-- FOOTER HINT -->
+            <!-- FOOTER -->
             <HorizontalStackLayout Grid.Row="3"
                                    HorizontalOptions="Center"
                                    Spacing="8"
                                    Margin="0,8,0,0">
+
                 <BoxView WidthRequest="6"
                          HeightRequest="6"
                          CornerRadius="3"
                          BackgroundColor="#22C55E"/>
+
                 <Label Text="Analyse IA en temps reel"
                        FontSize="12"
                        TextColor="#475569"/>
             </HorizontalStackLayout>
+
         </Grid>
 
     </Grid>

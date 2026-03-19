@@ -6,6 +6,8 @@ public partial class ResultPage : ContentPage
     {
         InitializeComponent();
 
+        BindingContext = new ViewModels.ResultPageViewModel(); // 🔥 IMPORTANT
+
         SpeciesLabel.Text = result.Species;
         DescriptionLabel.Text = result.Description;
         HabitatLabel.Text = result.Habitat;

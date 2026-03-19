@@ -1,5 +1,3 @@
-using FaunaScanApp.ViewModels;
-
 namespace FaunaScanApp.Views;
 
 public partial class LoadingPage : ContentPage

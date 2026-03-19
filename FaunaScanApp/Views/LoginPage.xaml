@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FaunaScanApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#020617">
+
+    <Grid>
+
+        <!-- Background -->
+        <BoxView Color="#020617" />
+
+        <!-- Glow decor -->
+        <BoxView 
+            WidthRequest="300"
+            HeightRequest="300"
+            CornerRadius="150"
+            Color="#22C55E"
+            Opacity="0.03"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            Margin="0,-100,0,0"/>
+
+        <ScrollView>
+            <VerticalStackLayout 
+                Padding="32,60,32,40" 
+                Spacing="24" 
+                VerticalOptions="Center">
+
+                <!-- LOGO SECTION -->
+                <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+
+                    <!-- LOGO IMAGE -->
+                    <Border 
+                        WidthRequest="100"
+                        HeightRequest="100"
+                        StrokeShape="RoundRectangle 24"
+                        Stroke="#22C55E"
+                        StrokeThickness="2"
+                        BackgroundColor="#0F172A"
+                        Padding="12"
+                        HorizontalOptions="Center">
+
+                        <Image 
+                            Source="logo.png"
+                            Aspect="AspectFit"/>
+
+                    </Border>
+
+                    <!-- APP NAME -->
+                    <Label 
+                        Text="FaunaScan"
+                        FontSize="36"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        HorizontalOptions="Center"/>
+
+                    <!-- TAGLINE -->
+                    <Label 
+                        Text="Identifiez la faune avec l'IA"
+                        FontSize="14"
+                        TextColor="#64748B"
+                        HorizontalOptions="Center"/>
+
+                </VerticalStackLayout>
+
+                <BoxView HeightRequest="20"/>
+
+                <!-- EMAIL -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Email" TextColor="#94A3B8"/>
+                    <Border BackgroundColor="#1E293B" Stroke="#334155" StrokeShape="RoundRectangle 14" Padding="16,4">
+                        <Entry 
+                            Placeholder="votre@email.com"
+                            Text="{Binding Email}"
+                            TextColor="White"
+                            PlaceholderColor="#475569"
+                            BackgroundColor="Transparent"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- PASSWORD -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Mot de passe" TextColor="#94A3B8"/>
+                    <Border BackgroundColor="#1E293B" Stroke="#334155" StrokeShape="RoundRectangle 14" Padding="16,4">
+                        <Entry 
+                            Placeholder="••••••••"
+                            IsPassword="True"
+                            Text="{Binding Password}"
+                            TextColor="White"
+                            PlaceholderColor="#475569"
+                            BackgroundColor="Transparent"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- LOGIN BUTTON -->
+                <Border BackgroundColor="#22C55E" StrokeShape="RoundRectangle 14" HeightRequest="56">
+                    <Button 
+                        Text="Se connecter"
+                        Command="{Binding LoginCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#020617"
+                        FontAttributes="Bold"/>
+                </Border>
+
+                <!-- REGISTER -->
+                <Border Stroke="#334155" StrokeShape="RoundRectangle 14" HeightRequest="54">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToRegisterCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label 
+                        Text="Créer un compte"
+                        TextColor="#22C55E"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
-namespace FaunaScanApp.ViewModels;
+﻿namespace FaunaScanApp.ViewModels;
 
 public partial class HomePageViewModel : ObservableObject
 {

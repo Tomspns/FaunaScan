@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace FaunaScanApp.ViewModels;
+﻿namespace FaunaScanApp.ViewModels;
 
 public partial class ResultPageViewModel : ObservableObject
 {
@@ -12,4 +10,10 @@ public partial class ResultPageViewModel : ObservableObject
 
     [ObservableProperty]
     private string habitat = "";
+
+    [RelayCommand]
+    private async Task ScanAgain()
+    {
+        await Application.Current!.Windows[0].Page.Navigation.PushAsync(new Views.CameraPage());
+    }
 }

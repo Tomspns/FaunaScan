@@ -1,40 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="FaunaScanApp.Views.LoadingPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="#020617">
+    BackgroundColor="#020617"
+    Shell.NavBarIsVisible="False">
 
     <Grid>
 
+        <!-- BACKGROUND GRADIENT -->
+        <BoxView>
+            <BoxView.Background>
+                <RadialGradientBrush Center="0.5,0.4" Radius="1.0">
+                    <GradientStop Color="#0D1B2A" Offset="0.0"/>
+                    <GradientStop Color="#020617" Offset="1.0"/>
+                </RadialGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- MAIN CONTENT -->
         <VerticalStackLayout
-        VerticalOptions="Center"
-        HorizontalOptions="Center"
-        Spacing="25">
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Spacing="32"
+            Padding="32">
 
-            <!-- Pulse circle -->
-            <Border
-            StrokeShape="RoundRectangle 50"
-            HeightRequest="100"
-            WidthRequest="100"
-            BackgroundColor="#22C55E"
-            Opacity="0.2"
-            x:Name="Pulse"/>
+            <!-- ANIMATED PULSE RINGS -->
+            <Grid HeightRequest="160" WidthRequest="160" HorizontalOptions="Center">
 
-            <ActivityIndicator
-            IsRunning="True"
-            Color="#22C55E"/>
+                <!-- Outer Pulse Ring -->
+                <Border x:Name="PulseOuter"
+                        StrokeShape="RoundRectangle 80"
+                        HeightRequest="160"
+                        WidthRequest="160"
+                        StrokeThickness="1"
+                        Stroke="#22C55E"
+                        BackgroundColor="#0522C55E"
+                        Opacity="0.3"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
 
-            <Label
-            Text="Analyse IA en cours..."
-            TextColor="White"/>
+                <!-- Middle Pulse Ring -->
+                <Border x:Name="PulseMiddle"
+                        StrokeShape="RoundRectangle 60"
+                        HeightRequest="120"
+                        WidthRequest="120"
+                        StrokeThickness="1"
+                        Stroke="#22C55E"
+                        BackgroundColor="#0A22C55E"
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+
+                <!-- Inner Pulse Circle -->
+                <Border x:Name="Pulse"
+                        StrokeShape="RoundRectangle 40"
+                        HeightRequest="80"
+                        WidthRequest="80"
+                        StrokeThickness="0"
+                        BackgroundColor="#1A22C55E"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,0"
+                                Radius="30"
+                                Opacity="0.6"/>
+                    </Border.Shadow>
+                </Border>
+
+                <!-- Center Icon -->
+                <Border StrokeShape="RoundRectangle 28"
+                        HeightRequest="56"
+                        WidthRequest="56"
+                        StrokeThickness="0"
+                        BackgroundColor="#020617"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                    <Grid>
+                        <ActivityIndicator
+                            IsRunning="True"
+                            Color="#22C55E"
+                            HeightRequest="36"
+                            WidthRequest="36"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- STATUS TEXT -->
+            <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                <Label Text="Analyse IA en cours..."
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center">
+                    <Label.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.4"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Identification de l'espece"
+                       FontSize="14"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- PROGRESS SECTION -->
+            <VerticalStackLayout Spacing="12" WidthRequest="280" HorizontalOptions="Center">
+
+                <!-- Progress Bar Container -->
+                <Border StrokeThickness="0"
+                        StrokeShape="RoundRectangle 8"
+                        BackgroundColor="#0A1628"
+                        HeightRequest="12"
+                        Padding="2">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000"
+                                Offset="0,2"
+                                Radius="8"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                    <Grid>
+                        <!-- Background Track -->
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 6"
+                                BackgroundColor="#1E293B"
+                                HeightRequest="8"/>
+
+                        <!-- Progress Fill -->
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 6"
+                                HeightRequest="8"
+                                HorizontalOptions="Start">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#16A34A" Offset="0.0"/>
+                                    <GradientStop Color="#22C55E" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Shadow>
+                                <Shadow Brush="#22C55E"
+                                        Offset="0,0"
+                                        Radius="6"
+                                        Opacity="0.6"/>
+                            </Border.Shadow>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Native Progress Bar (hidden but functional) -->
+                <ProgressBar x:Name="ProgressBar"
+                             Progress="{Binding Progress}"
+                             HeightRequest="0"
+                             Opacity="0"
+                             BackgroundColor="Transparent"
+                             ProgressColor="Transparent"/>
+
+                <!-- Processing Steps -->
+                <Grid ColumnDefinitions="*,*,*" Margin="0,8,0,0">
+                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="4">
+                        <Border StrokeShape="RoundRectangle 10"
+                                HeightRequest="20"
+                                WidthRequest="20"
+                                BackgroundColor="#22C55E"
+                                HorizontalOptions="Center">
+                            <Label Text="1"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#020617"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                        <Label Text="Capture"
+                               FontSize="10"
+                               TextColor="#64748B"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="4">
+                        <Border StrokeShape="RoundRectangle 10"
+                                HeightRequest="20"
+                                WidthRequest="20"
+                                BackgroundColor="#22C55E"
+                                HorizontalOptions="Center">
+                            <Border.Shadow>
+                                <Shadow Brush="#22C55E"
+                                        Offset="0,0"
+                                        Radius="8"
+                                        Opacity="0.8"/>
+                            </Border.Shadow>
+                            <Label Text="2"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#020617"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                        <Label Text="Analyse"
+                               FontSize="10"
+                               TextColor="#22C55E"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="4">
+                        <Border StrokeShape="RoundRectangle 10"
+                                HeightRequest="20"
+                                WidthRequest="20"
+                                StrokeThickness="1"
+                                Stroke="#1E293B"
+                                BackgroundColor="#0A1628"
+                                HorizontalOptions="Center">
+                            <Label Text="3"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#64748B"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                        <Label Text="Resultat"
+                               FontSize="10"
+                               TextColor="#64748B"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
 
-        <ProgressBar x:Name="ProgressBar"
-             Progress="{Binding Progress}"
-             HeightRequest="8"
-             BackgroundColor="#1E293B"
-             ProgressColor="#22C55E"/>
+        <!-- FOOTER -->
+        <VerticalStackLayout VerticalOptions="End"
+                             HorizontalOptions="Center"
+                             Padding="24,0,24,40"
+                             Spacing="8">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
+                <BoxView WidthRequest="8"
+                         HeightRequest="8"
+                         CornerRadius="4"
+                         BackgroundColor="#22C55E">
+                    <BoxView.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,0"
+                                Radius="4"
+                                Opacity="0.8"/>
+                    </BoxView.Shadow>
+                </BoxView>
+                <Label Text="Modele IA actif"
+                       FontSize="12"
+                       TextColor="#64748B"/>
+            </HorizontalStackLayout>
+            <Label Text="FaunaScan Vision v2.0"
+                   FontSize="11"
+                   TextColor="#475569"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
 
     </Grid>
+
 </ContentPage>

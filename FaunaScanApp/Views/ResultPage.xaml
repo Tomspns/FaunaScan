@@ -1,29 +1,345 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="FaunaScanApp.Views.ResultPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="#020617">
+    BackgroundColor="#020617"
+    Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+    <Grid>
 
-            <Image x:Name="AnimalImage" HeightRequest="200"/>
+        <!-- BACKGROUND GRADIENT -->
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#0D1B2A" Offset="0.0"/>
+                    <GradientStop Color="#020617" Offset="0.3"/>
+                    <GradientStop Color="#020617" Offset="1.0"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
 
-            <Label x:Name="SpeciesLabel" TextColor="White" FontSize="24"/>
+        <ScrollView>
+            <VerticalStackLayout Spacing="0">
 
-            <Label x:Name="ConfidenceLabel" TextColor="#22C55E"/>
+                <!-- HERO IMAGE SECTION -->
+                <Grid HeightRequest="340">
 
-            <Label x:Name="DescriptionLabel" TextColor="#CBD5F5"/>
+                    <!-- Animal Image -->
+                    <Image x:Name="AnimalImage"
+                           Aspect="AspectFill"
+                           HeightRequest="340"/>
 
-            <Label x:Name="HabitatLabel" TextColor="#94A3B8"/>
+                    <!-- Gradient Overlay -->
+                    <BoxView>
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#00020617" Offset="0.0"/>
+                                <GradientStop Color="#80020617" Offset="0.6"/>
+                                <GradientStop Color="#FF020617" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
 
-            <Label Text="🔎 Autres possibilités"
-                   TextColor="White"
-                   FontAttributes="Bold"/>
+                    <!-- AI Badge -->
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#1A22C55E"
+                            Padding="14,8"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            Margin="20,50,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="#22C55E"
+                                    Offset="0,0"
+                                    Radius="12"
+                                    Opacity="0.4"/>
+                        </Border.Shadow>
+                        <HorizontalStackLayout Spacing="6">
+                            <BoxView WidthRequest="8"
+                                     HeightRequest="8"
+                                     CornerRadius="4"
+                                     BackgroundColor="#22C55E"/>
+                            <Label Text="IA Analyse"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#22C55E"/>
+                        </HorizontalStackLayout>
+                    </Border>
 
-            <VerticalStackLayout x:Name="TopPredictionsLayout"/>
+                    <!-- Back Button -->
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 22"
+                            BackgroundColor="#20FFFFFF"
+                            HeightRequest="44"
+                            WidthRequest="44"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            Margin="0,50,20,0">
+                        <Label Text="X"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                </Grid>
+
+                <!-- MAIN CONTENT -->
+                <VerticalStackLayout Padding="24,0,24,40" Spacing="20" Margin="0,-40,0,0">
+
+                    <!-- SPECIES NAME CARD -->
+                    <Border StrokeThickness="1"
+                            Stroke="#1E293B"
+                            StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#0A1628"
+                            Padding="24">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000"
+                                    Offset="0,8"
+                                    Radius="24"
+                                    Opacity="0.4"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="16">
+
+                            <!-- Species Header -->
+                            <HorizontalStackLayout Spacing="12">
+                                <Border StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#1A22C55E"
+                                        HeightRequest="48"
+                                        WidthRequest="48">
+                                    <Label Text="🦁"
+                                           FontSize="24"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                                    <Label Text="Espece identifiee"
+                                           FontSize="11"
+                                           TextColor="#64748B"
+                                           FontAttributes="Bold"/>
+                                    <Label x:Name="SpeciesLabel"
+                                           Text="Lion d'Afrique"
+                                           FontSize="26"
+                                           FontAttributes="Bold"
+                                           TextColor="White">
+                                        <Label.Shadow>
+                                            <Shadow Brush="#22C55E"
+                                                    Offset="0,0"
+                                                    Radius="10"
+                                                    Opacity="0.3"/>
+                                        </Label.Shadow>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+
+                            <!-- Confidence Score -->
+                            <Border StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#0F172A"
+                                    Padding="16">
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="10">
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="Indice de confiance"
+                                           FontSize="13"
+                                           TextColor="#94A3B8"/>
+
+                                    <Label x:Name="ConfidenceLabel"
+                                           Grid.Row="0" Grid.Column="1"
+                                           Text="96.8%"
+                                           FontSize="24"
+                                           FontAttributes="Bold"
+                                           TextColor="#22C55E">
+                                        <Label.Shadow>
+                                            <Shadow Brush="#22C55E"
+                                                    Offset="0,0"
+                                                    Radius="8"
+                                                    Opacity="0.5"/>
+                                        </Label.Shadow>
+                                    </Label>
+
+                                    <!-- Progress Bar -->
+                                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                        <Border StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 4"
+                                                BackgroundColor="#1E293B"
+                                                HeightRequest="8"/>
+                                        <Border StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 4"
+                                                HeightRequest="8"
+                                                HorizontalOptions="Start"
+                                                WidthRequest="270">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                    <GradientStop Color="#16A34A" Offset="0.0"/>
+                                                    <GradientStop Color="#22C55E" Offset="1.0"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Border.Shadow>
+                                                <Shadow Brush="#22C55E"
+                                                        Offset="0,0"
+                                                        Radius="6"
+                                                        Opacity="0.6"/>
+                                            </Border.Shadow>
+                                        </Border>
+                                    </Grid>
+
+                                </Grid>
+                            </Border>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- DESCRIPTION CARD -->
+                    <Border StrokeThickness="1"
+                            Stroke="#1E293B"
+                            StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#0A1628"
+                            Padding="24">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000"
+                                    Offset="0,8"
+                                    Radius="24"
+                                    Opacity="0.4"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="12">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="4"
+                                         HeightRequest="16"
+                                         CornerRadius="2"
+                                         BackgroundColor="#22C55E"/>
+                                <Label Text="Description"
+                                       FontSize="11"
+                                       TextColor="#22C55E"
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                            <Label x:Name="DescriptionLabel"
+                                   Text="Le lion est un mammifere carnivore de la famille des felides. C'est le deuxieme plus grand felin apres le tigre."
+                                   FontSize="15"
+                                   TextColor="#CBD5E1"
+                                   LineHeight="1.5"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- HABITAT CARD -->
+                    <Border StrokeThickness="1"
+                            Stroke="#1E293B"
+                            StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#0A1628"
+                            Padding="24">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000"
+                                    Offset="0,8"
+                                    Radius="24"
+                                    Opacity="0.4"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="12">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="4"
+                                         HeightRequest="16"
+                                         CornerRadius="2"
+                                         BackgroundColor="#22C55E"/>
+                                <Label Text="Habitat naturel"
+                                       FontSize="11"
+                                       TextColor="#22C55E"
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+
+                                <Border Grid.Column="0"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#1A22C55E"
+                                    HeightRequest="40"
+                                    WidthRequest="40"
+                                    VerticalOptions="Start">
+                                <Label Text="🌍"
+                                    FontSize="18"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                                </Border>
+
+                                <Label Grid.Column="1"
+                                   x:Name="HabitatLabel"
+                                   FontSize="15"
+                                   TextColor="#94A3B8"
+                                   LineBreakMode="WordWrap"/>   
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- OTHER PREDICTIONS CARD -->
+                    <Border StrokeThickness="1"
+                            Stroke="#1E293B"
+                            StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#0A1628"
+                            Padding="24">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000"
+                                    Offset="0,8"
+                                    Radius="24"
+                                    Opacity="0.4"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="16">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="4"
+                                         HeightRequest="16"
+                                         CornerRadius="2"
+                                         BackgroundColor="#22C55E"/>
+                                <Label Text="Autres possibilites"
+                                       FontSize="11"
+                                       TextColor="#22C55E"
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+
+                            <!-- Dynamic Predictions Container -->
+                            <VerticalStackLayout x:Name="TopPredictionsLayout" Spacing="10"/>
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <!-- SCAN AGAIN BUTTON -->
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 30"
+                            HeightRequest="64"
+                            Margin="0,8,0,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#22C55E" Offset="0.0"/>
+                                <GradientStop Color="#16A34A" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#22C55E"
+                                    Offset="0,4"
+                                    Radius="20"
+                                    Opacity="0.5"/>
+                        </Border.Shadow>
+                        <Button Text="Scanner un autre animal"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontSize="17"
+                                FontAttributes="Bold"
+                                HeightRequest="64"
+                                Command="{Binding ScanAgainCommand}"/>
+                    </Border>
+
+                    <!-- FOOTER -->
+                    <Label Text="Analyse realisee par FaunaScan AI v2.0"
+                           FontSize="11"
+                           TextColor="#475569"
+                           HorizontalOptions="Center"
+                           Margin="0,4,0,0"/>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
 
 </ContentPage>

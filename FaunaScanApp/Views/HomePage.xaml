@@ -1,68 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="FaunaScanApp.Views.HomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="#020617">
+    BackgroundColor="#020617"
+    Shell.NavBarIsVisible="False">
 
     <Grid>
-
+        <!-- BACKGROUND IMAGE WITH OVERLAY -->
         <Image Source="https://images.unsplash.com/photo-1501706362039-c6e80948bb62"
                Aspect="AspectFill"
-               Opacity="0.4"/>
+               Opacity="0.25"/>
 
-        <BoxView Color="#020617" Opacity="0.6"/>
+        <!-- GRADIENT OVERLAY -->
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#CC020617" Offset="0.0"/>
+                    <GradientStop Color="#F0020617" Offset="0.5"/>
+                    <GradientStop Color="#020617" Offset="1.0"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
 
         <ScrollView>
-            <VerticalStackLayout Padding="30" Spacing="25">
+            <VerticalStackLayout Padding="24,60,24,40" Spacing="28">
 
-                <!-- LOGO -->
-                <Image Source="logo.png"
-                       HeightRequest="90"
-                       HorizontalOptions="Center"/>
+                <!-- HEADER SECTION -->
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
 
-                <Label
-                    Text="FaunaScan"
-                    FontSize="36"
-                    FontAttributes="Bold"
-                    TextColor="White"/>
+                    <!-- LOGO WITH GLOW EFFECT -->
+                    <Border StrokeThickness="0"
+                            HeightRequest="100"
+                            WidthRequest="100"
+                            HorizontalOptions="Center"
+                            StrokeShape="RoundRectangle 50">
+                        <Border.Shadow>
+                            <Shadow Brush="#22C55E"
+                                    Offset="0,0"
+                                    Radius="40"
+                                    Opacity="0.6"/>
+                        </Border.Shadow>
+                        <Image Source="logo.png"
+                               HeightRequest="80"
+                               WidthRequest="80"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
 
-                <Label
-                    Text="FaunaScan est une application utilisant l’intelligence artificielle pour identifier automatiquement les animaux à partir d’une simple photo. L’analyse est réalisée en temps réel afin de fournir des informations précises et enrichies sur l’espèce détectée."
-                    TextColor="#CBD5F5"
-                    FontSize="14"/>
+                    <!-- APP TITLE -->
+                    <Label Text="FaunaScan"
+                           FontSize="42"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center">
+                        <Label.Shadow>
+                            <Shadow Brush="#22C55E"
+                                    Offset="0,0"
+                                    Radius="20"
+                                    Opacity="0.5"/>
+                        </Label.Shadow>
+                    </Label>
 
-                <Border StrokeShape="RoundRectangle 20"
-                        BackgroundColor="#1E293B"
-                        Padding="20">
+                    <!-- TAGLINE -->
+                    <Border StrokeThickness="1"
+                            Stroke="#22C55E"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="16,8"
+                            BackgroundColor="#0D22C55E"
+                            HorizontalOptions="Center">
+                        <Label Text="Intelligence Artificielle • Vision"
+                               FontSize="12"
+                               TextColor="#22C55E"
+                               FontAttributes="Bold"/>
+                    </Border>
+                </VerticalStackLayout>
 
-                    <VerticalStackLayout Spacing="10">
-
-                        <Label
-                            Text="🚀 Fonctionnement"
-                            FontSize="18"
-                            TextColor="White"
-                            FontAttributes="Bold"/>
-
-                        <Label
-                            Text="• Capture ou import d’image\n• Analyse par IA\n• Résultat instantané"
-                            TextColor="#94A3B8"/>
-
+                <!-- DESCRIPTION CARD -->
+                <Border StrokeThickness="1"
+                        Stroke="#1E293B"
+                        StrokeShape="RoundRectangle 24"
+                        BackgroundColor="#0A1628"
+                        Padding="24">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000"
+                                Offset="0,8"
+                                Radius="24"
+                                Opacity="0.4"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="À propos"
+                               FontSize="11"
+                               TextColor="#22C55E"
+                               FontAttributes="Bold"/>
+                        <Label Text="FaunaScan est une application utilisant l'intelligence artificielle pour identifier automatiquement les animaux à partir d'une simple photo. L'analyse est réalisée en temps réel afin de fournir des informations précises et enrichies sur l'espèce détectée."
+                               TextColor="#94A3B8"
+                               FontSize="15"
+                               LineHeight="1.5"/>
                     </VerticalStackLayout>
-
                 </Border>
 
-                <!-- BOUTON -->
-                <Border StrokeShape="RoundRectangle 30"
-                        BackgroundColor="#22C55E"
-                        x:Name="ScanButtonContainer">
+                <!-- FEATURES CARD -->
+                <Border StrokeThickness="1"
+                        Stroke="#1E293B"
+                        StrokeShape="RoundRectangle 24"
+                        BackgroundColor="#0A1628"
+                        Padding="24">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000"
+                                Offset="0,8"
+                                Radius="24"
+                                Opacity="0.4"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Fonctionnement"
+                               FontSize="11"
+                               TextColor="#22C55E"
+                               FontAttributes="Bold"/>
 
-                    <Button
-                        Text="📸 Scanner un animal"
-                        BackgroundColor="Transparent"
-                        TextColor="White"
-                        HeightRequest="60"
-                        Command="{Binding ScanCommand}" />  
+                        <!-- Feature 1 -->
+                        <HorizontalStackLayout Spacing="16">
+                            <Border StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#1A22C55E"
+                                    HeightRequest="44"
+                                    WidthRequest="44">
+                                <Label Text="📷"
+                                       FontSize="20"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                                <Label Text="Capture d'image"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       FontAttributes="Bold"/>
+                                <Label Text="Photo ou import depuis la galerie"
+                                       FontSize="12"
+                                       TextColor="#64748B"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!-- Feature 2 -->
+                        <HorizontalStackLayout Spacing="16">
+                            <Border StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#1A22C55E"
+                                    HeightRequest="44"
+                                    WidthRequest="44">
+                                <Label Text="🧠"
+                                       FontSize="20"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                                <Label Text="Analyse IA"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       FontAttributes="Bold"/>
+                                <Label Text="Reconnaissance intelligente"
+                                       FontSize="12"
+                                       TextColor="#64748B"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!-- Feature 3 -->
+                        <HorizontalStackLayout Spacing="16">
+                            <Border StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#1A22C55E"
+                                    HeightRequest="44"
+                                    WidthRequest="44">
+                                <Label Text="⚡"
+                                       FontSize="20"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                                <Label Text="Résultat instantané"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       FontAttributes="Bold"/>
+                                <Label Text="Informations détaillées en secondes"
+                                       FontSize="12"
+                                       TextColor="#64748B"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
                 </Border>
+
+                <!-- SPACER -->
+                <BoxView HeightRequest="10" Color="Transparent"/>
+
+                <!-- MAIN SCAN BUTTON -->
+                <Border x:Name="ScanButtonContainer"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 30"
+                        HeightRequest="64"
+                        HorizontalOptions="Fill">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#22C55E" Offset="0.0"/>
+                            <GradientStop Color="#16A34A" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,4"
+                                Radius="20"
+                                Opacity="0.5"/>
+                    </Border.Shadow>
+                    <Button Text="🔍  Scanner un animal"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            HeightRequest="64"
+                            Command="{Binding ScanCommand}"/>
+                </Border>
+
+                <!-- FOOTER TEXT -->
+                <Label Text="Propulsé par l'IA de vision avancée"
+                       FontSize="12"
+                       TextColor="#475569"
+                       HorizontalOptions="Center"
+                       Margin="0,8,0,0"/>
 
             </VerticalStackLayout>
         </ScrollView>

@@ -1,36 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="FaunaScanApp.Views.SplashPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="#020617">
+    BackgroundColor="#020617"
+    Shell.NavBarIsVisible="False">
 
     <Grid>
 
+        <!-- BACKGROUND GRADIENT -->
+        <BoxView>
+            <BoxView.Background>
+                <RadialGradientBrush Center="0.5,0.45" Radius="0.8">
+                    <GradientStop Color="#0D1B2A" Offset="0.0"/>
+                    <GradientStop Color="#020617" Offset="1.0"/>
+                </RadialGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- DECORATIVE GRID PATTERN (Top) -->
+        <Grid VerticalOptions="Start" HorizontalOptions="Fill" HeightRequest="200" Opacity="0.04">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.Row="0" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="2" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="4" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="6" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="8" BackgroundColor="#22C55E"/>
+        </Grid>
+
+        <!-- DECORATIVE GRID PATTERN (Bottom) -->
+        <Grid VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="200" Opacity="0.04">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <BoxView Grid.Row="0" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="2" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="4" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="6" BackgroundColor="#22C55E"/>
+            <BoxView Grid.Row="8" BackgroundColor="#22C55E"/>
+        </Grid>
+
+        <!-- MAIN CONTENT -->
         <VerticalStackLayout
             VerticalOptions="Center"
             HorizontalOptions="Center"
-            Spacing="25">
+            Spacing="24">
 
-            <Image
-                x:Name="Logo"
-                Source="logo.png"
-                WidthRequest="400"
-                HeightRequest="400"
-                Opacity="0"
-                Scale="0.5"/>
+            <!-- LOGO WITH GLOW RINGS -->
+            <Grid HeightRequest="280" WidthRequest="280" HorizontalOptions="Center">
 
-            <Label
-                x:Name="TitleLabel"
-                Text="FaunaScan"
-                FontSize="40"
-                TextColor="White"
-                Opacity="0"/>
+                <!-- Outer Glow Ring 1 -->
+                <Border StrokeShape="RoundRectangle 140"
+                        HeightRequest="280"
+                        WidthRequest="280"
+                        StrokeThickness="1"
+                        Stroke="#22C55E"
+                        BackgroundColor="#0322C55E"
+                        Opacity="0.2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
 
-            <Label
-                x:Name="Subtitle"
-                Text="AI Animal Recognition"
-                TextColor="#22C55E"
-                Opacity="0"/>
+                <!-- Outer Glow Ring 2 -->
+                <Border StrokeShape="RoundRectangle 110"
+                        HeightRequest="220"
+                        WidthRequest="220"
+                        StrokeThickness="1"
+                        Stroke="#22C55E"
+                        BackgroundColor="#0522C55E"
+                        Opacity="0.3"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+
+                <!-- Middle Glow Ring -->
+                <Border StrokeShape="RoundRectangle 80"
+                        HeightRequest="160"
+                        WidthRequest="160"
+                        StrokeThickness="1"
+                        Stroke="#22C55E"
+                        BackgroundColor="#0822C55E"
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,0"
+                                Radius="40"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                </Border>
+
+                <!-- Inner Glow Circle -->
+                <Border StrokeShape="RoundRectangle 55"
+                        HeightRequest="110"
+                        WidthRequest="110"
+                        StrokeThickness="0"
+                        BackgroundColor="#0F22C55E"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,0"
+                                Radius="30"
+                                Opacity="0.6"/>
+                    </Border.Shadow>
+                </Border>
+
+                <!-- LOGO IMAGE -->
+                <Image x:Name="Logo"
+                       Source="logo.png"
+                       WidthRequest="90"
+                       HeightRequest="90"
+                       Aspect="AspectFit"
+                       Opacity="0"
+                       Scale="0.5"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+
+            </Grid>
+
+            <!-- APP NAME -->
+            <Label x:Name="TitleLabel"
+                   Text="FaunaScan"
+                   FontSize="48"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   Opacity="0">
+                <Label.Shadow>
+                    <Shadow Brush="#22C55E"
+                            Offset="0,0"
+                            Radius="20"
+                            Opacity="0.5"/>
+                </Label.Shadow>
+            </Label>
+
+            <!-- SUBTITLE BADGE -->
+            <Border StrokeThickness="1"
+                    Stroke="#22C55E"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="20,10"
+                    BackgroundColor="#0A22C55E"
+                    HorizontalOptions="Center">
+                <Label x:Name="Subtitle"
+                       Text="AI Animal Recognition"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="#22C55E"
+                       Opacity="0"
+                       HorizontalOptions="Center"/>
+            </Border>
+
+        </VerticalStackLayout>
+
+        <!-- FOOTER -->
+        <VerticalStackLayout VerticalOptions="End"
+                             HorizontalOptions="Center"
+                             Padding="24,0,24,50"
+                             Spacing="12">
+
+            <!-- Loading Dots -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                <Border StrokeShape="RoundRectangle 4"
+                        HeightRequest="8"
+                        WidthRequest="8"
+                        BackgroundColor="#22C55E">
+                    <Border.Shadow>
+                        <Shadow Brush="#22C55E"
+                                Offset="0,0"
+                                Radius="4"
+                                Opacity="0.8"/>
+                    </Border.Shadow>
+                </Border>
+                <Border StrokeShape="RoundRectangle 4"
+                        HeightRequest="8"
+                        WidthRequest="8"
+                        BackgroundColor="#22C55E"
+                        Opacity="0.5"/>
+                <Border StrokeShape="RoundRectangle 4"
+                        HeightRequest="8"
+                        WidthRequest="8"
+                        BackgroundColor="#22C55E"
+                        Opacity="0.3"/>
+            </HorizontalStackLayout>
+
+            <!-- Version Text -->
+            <Label Text="Version 2.0"
+                   FontSize="11"
+                   TextColor="#475569"
+                   HorizontalOptions="Center"/>
 
         </VerticalStackLayout>
 

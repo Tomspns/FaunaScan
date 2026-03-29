@@ -30,7 +30,7 @@ public partial class SplashPage : ContentPage
         await Task.Delay(1000);
 
         Application.Current!.Windows[0].Page =
-            new NavigationPage(new HomePage());
+            new NavigationPage(new LoginPage());
 
         await Logo.ScaleTo(1.05, 150);
         await Logo.ScaleTo(1, 150);

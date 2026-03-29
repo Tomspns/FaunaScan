@@ -1,33 +1,35 @@
-﻿using FaunaScanApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
+﻿namespace FaunaScanApp.Services;
 
-namespace FaunaScanApp.Services
+public class ApiService
 {
-    public class ApiService
+    private readonly HttpClient _httpClient = new();
+
+    private const string API_URL = "http://10.74.17.14:8000/detect";
+
+    public async Task<AnimalResult> AnalyzeImageAsync(string imagePath)
     {
-        private readonly HttpClient _httpClient;
+        using var form = new MultipartFormDataContent();
 
-        public ApiService()
-        {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("http://IP_SERVEUR:PORT/");
-        }
+        using var fileStream = File.OpenRead(imagePath);
+        using var content = new StreamContent(fileStream);
+        content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
 
-        public async Task<AnimalResult> PredictAnimal(Stream imageStream)
-        {
-            var content = new MultipartFormDataContent();
-            content.Add(new StreamContent(imageStream), "file", "animal.jpg");
+        // 🔥 IMPORTANT
+        form.Add(content, "image", Path.GetFileName(imagePath));
 
-            var response = await _httpClient.PostAsync("predict", content);
+        var url = $"{API_URL}?username=tom";
 
-            var json = await response.Content.ReadAsStringAsync();
+        var response = await _httpClient.PostAsync(url, form);
 
-            var result = JsonSerializer.Deserialize<AnimalResult>(json);
-            return result ?? new AnimalResult();
-        }
+        if (!response.IsSuccessStatusCode)
+            return null;
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        Console.WriteLine("===== API RESPONSE =====");
+        Console.WriteLine(json);
+        Console.WriteLine("========================");
+
+        return JsonSerializer.Deserialize<AnimalResult>(json);
     }
-
 }

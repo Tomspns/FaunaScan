@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace FaunaScanApp.ViewModels;
+﻿namespace FaunaScanApp.ViewModels;
 
 public partial class LoadingPageViewModel : ObservableObject
 {

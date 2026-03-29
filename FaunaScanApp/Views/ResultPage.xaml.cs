@@ -1,18 +1,17 @@
-using FaunaScanApp.Models;
-
 namespace FaunaScanApp.Views;
 
 public partial class ResultPage : ContentPage
 {
-    public ResultPage(AnimalResult result)
+    public ResultPage(AnimalResultDisplay result)
     {
         InitializeComponent();
+
+        BindingContext = new ViewModels.ResultPageViewModel(); // 🔥 IMPORTANT
 
         SpeciesLabel.Text = result.Species;
         DescriptionLabel.Text = result.Description;
         HabitatLabel.Text = result.Habitat;
-        ConfidenceLabel.Text = $"Confiance : {result.Confidence * 100:F0}%";
-
-        AnimalImage.Source = result.ImageUrl;
+        ConfidenceLabel.Text = $"{result.Confidence * 100:F1}%";
+        AnimalImage.Source = result.ImagePath;
     }
 }

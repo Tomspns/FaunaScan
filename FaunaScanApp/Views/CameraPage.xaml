@@ -1,69 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="FaunaScanApp.Views.CameraPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="#020617">
+    BackgroundColor="#020617"
+    Shell.NavBarIsVisible="False">
 
     <Grid>
 
-        <!-- Preview image -->
+        <!-- BACKGROUND GRADIENT -->
+        <BoxView>
+            <BoxView.Background>
+                <RadialGradientBrush Center="0.5,0.3" Radius="1.2">
+                    <GradientStop Color="#0A1628" Offset="0.0"/>
+                    <GradientStop Color="#020617" Offset="1.0"/>
+                </RadialGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- PREVIEW IMAGE -->
         <Image x:Name="PreviewImage"
                Aspect="AspectFill"
                Opacity="0.7"/>
 
-        <!-- Scan grid -->
-        <Grid>
-            <BoxView Color="Transparent"/>
+        <!-- SCAN FRAME OVERLAY -->
+        <Grid Padding="24"
+              VerticalOptions="CenterAndExpand"
+              HorizontalOptions="Center">
 
-            <!-- Scan line -->
-            <BoxView x:Name="ScanLine"
-                 HeightRequest="3"
-                 BackgroundColor="#22C55E"
-                 VerticalOptions="Start"/>
+            <Border StrokeThickness="2"
+                    Stroke="#22C55E"
+                    StrokeShape="RoundRectangle 24"
+                    BackgroundColor="#0522C55E"
+                    HeightRequest="280"
+                    WidthRequest="280">
 
-            <!-- Glow -->
-            <BoxView x:Name="ScanGlow"
-                 HeightRequest="80"
-                 BackgroundColor="#22C55E"
-                 Opacity="0.1"
-                 VerticalOptions="Start"/>
+                <Border.Shadow>
+                    <Shadow Brush="#22C55E"
+                            Offset="0,0"
+                            Radius="40"
+                            Opacity="0.3"/>
+                </Border.Shadow>
 
+                <Grid>
+
+                    <!-- LOGO CENTRÉ (🔥 AJOUT PRINCIPAL) -->
+                    <Image Source="logo.png"
+                           HeightRequest="200"
+                           WidthRequest="200"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Opacity="0.9"/>
+
+                    <!-- Corner Indicators -->
+                    <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
+                             HorizontalOptions="Start" VerticalOptions="Start"/>
+                    <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
+                             HorizontalOptions="Start" VerticalOptions="Start"/>
+
+                    <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
+                             HorizontalOptions="End" VerticalOptions="Start"/>
+                    <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
+                             HorizontalOptions="End" VerticalOptions="Start"/>
+
+                    <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
+                             HorizontalOptions="Start" VerticalOptions="End"/>
+                    <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
+                             HorizontalOptions="Start" VerticalOptions="End"/>
+
+                    <BoxView WidthRequest="40" HeightRequest="4" BackgroundColor="#22C55E"
+                             HorizontalOptions="End" VerticalOptions="End"/>
+                    <BoxView WidthRequest="4" HeightRequest="40" BackgroundColor="#22C55E"
+                             HorizontalOptions="End" VerticalOptions="End"/>
+
+                    <!-- SCAN LINE -->
+                    <BoxView x:Name="ScanLine"
+                             HeightRequest="3"
+                             BackgroundColor="#22C55E"
+                             VerticalOptions="Start"
+                             Margin="8,0">
+                        <BoxView.Shadow>
+                            <Shadow Brush="#22C55E"
+                                    Offset="0,0"
+                                    Radius="8"
+                                    Opacity="0.8"/>
+                        </BoxView.Shadow>
+                    </BoxView>
+
+                    <!-- SCAN GLOW -->
+                    <BoxView x:Name="ScanGlow"
+                             HeightRequest="60"
+                             Opacity="0.15"
+                             VerticalOptions="Start"
+                             Margin="8,0">
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#22C55E" Offset="0.0"/>
+                                <GradientStop Color="Transparent" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
+
+                </Grid>
+            </Border>
         </Grid>
 
-        <!-- Bottom buttons -->
-        <VerticalStackLayout VerticalOptions="End" Padding="20" Spacing="15">
+        <!-- SCAN INSTRUCTIONS -->
+        <VerticalStackLayout VerticalOptions="Start"
+                             HorizontalOptions="Center"
+                             Padding="24,30,24,0"
+                             Spacing="8">
 
-            <Image Source="logo.png"
-               HeightRequest="60"
-               HorizontalOptions="Center"/>
+            <Label Text="Positionnez l'animal"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center">
+                <Label.Shadow>
+                    <Shadow Brush="#000000"
+                            Offset="0,2"
+                            Radius="4"
+                            Opacity="0.5"/>
+                </Label.Shadow>
+            </Label>
 
-            <Border StrokeShape="RoundRectangle 25"
-                    BackgroundColor="#22C55E"
-                    HeightRequest="60">
-
-                <Button
-                    Text="📸 Prendre une photo"
-                    BackgroundColor="Transparent"
-                    TextColor="White"
-                    FontSize="16"
-                    Command="{Binding TakePhotoCommand}" />
-
-            </Border>
-
-            <Border StrokeShape="RoundRectangle 25"
-                    BackgroundColor="#1E293B"
-                    HeightRequest="60">
-
-                <Button
-                    Text="🖼 Importer une image"
-                    BackgroundColor="Transparent"
-                    TextColor="White"
-                    FontSize="16"
-                    Command="{Binding PickPhotoCommand}" />
-
-            </Border>
-
+            <Label Text="dans le cadre de scan"
+                   FontSize="14"
+                   TextColor="#94A3B8"
+                   HorizontalOptions="Center"/>
         </VerticalStackLayout>
+
+        <!-- BOTTOM CONTROLS -->
+        <Grid VerticalOptions="End"
+              Padding="24,10,24,40"
+              RowSpacing="12">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            
+
+            <!-- TAKE PHOTO -->
+            <Border Grid.Row="1"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 30"
+                    HeightRequest="64">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#22C55E" Offset="0.0"/>
+                        <GradientStop Color="#16A34A" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Border.Shadow>
+                    <Shadow Brush="#22C55E"
+                            Offset="0,4"
+                            Radius="20"
+                            Opacity="0.5"/>
+                </Border.Shadow>
+
+                <Button Text="Prendre une photo"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        Command="{Binding TakePhotoCommand}"/>
+            </Border>
+
+            <!-- IMPORT -->
+            <Border Grid.Row="2"
+                    StrokeThickness="1"
+                    Stroke="#1E293B"
+                    StrokeShape="RoundRectangle 30"
+                    BackgroundColor="#0A1628"
+                    HeightRequest="60">
+
+                <Border.Shadow>
+                    <Shadow Brush="#000000"
+                            Offset="0,4"
+                            Radius="12"
+                            Opacity="0.3"/>
+                </Border.Shadow>
+
+                <Button Text="Importer depuis la galerie"
+                        BackgroundColor="Transparent"
+                        TextColor="#94A3B8"
+                        FontSize="15"
+                        Command="{Binding PickPhotoCommand}"/>
+            </Border>
+
+            <!-- FOOTER -->
+            <HorizontalStackLayout Grid.Row="3"
+                                   HorizontalOptions="Center"
+                                   Spacing="8"
+                                   Margin="0,8,0,0">
+
+                <BoxView WidthRequest="6"
+                         HeightRequest="6"
+                         CornerRadius="3"
+                         BackgroundColor="#22C55E"/>
+
+                <Label Text="Analyse IA en temps reel"
+                       FontSize="12"
+                       TextColor="#475569"/>
+            </HorizontalStackLayout>
+
+        </Grid>
 
     </Grid>
 
